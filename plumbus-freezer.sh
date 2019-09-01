@@ -70,6 +70,8 @@ unfreeze () {
   pkill -9 gdb
   # comment this next line out to leave the immutable bit on after unfreeze
   chattr -R -i /
+  # also doing a chattr -R -i / is just dumb, plain dumbness. Like chalk noises to an engineer and can stew chaos by
+  # removing some access controls that may have been put in place!
 }
 
 cleanout () {
@@ -120,7 +122,6 @@ checkplumbus () {
   else
     main "$1" 2>/dev/null &
   fi
-  echo -e "\e[34m OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO0----------*\e[0m Freeze run complete."
 }
 
 checkplumbus
