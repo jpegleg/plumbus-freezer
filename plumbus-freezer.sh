@@ -68,6 +68,8 @@ freeze5 () {
 
 unfreeze () {
   pkill -9 gdb
+  # comment this next line out to leave the immutable bit on after unfreeze
+  chattr -R -i /
 }
 
 cleanout () {
