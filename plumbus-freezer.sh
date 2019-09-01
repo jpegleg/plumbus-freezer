@@ -54,8 +54,8 @@ for x in $(pgrep . | grep -v $$); do
   # freeze up everything but plumbus-freezer pid
 
   gdb -p $x 2>/dev/null &
-  done
-
+  
+done
 }
 
 freeze4 () {
