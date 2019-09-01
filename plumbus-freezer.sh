@@ -114,7 +114,7 @@ esac
 checkplumbus () {
   s="$(which gdb)"
   if [ -z $s ]; then
-    echo "No plumbus: gdb not installed? It is required for your plumbis freezer to have gdb!"
+    echo "No plumbus-freezer: gdb not installed? It is required for your plumbis-freezer to have gdb!"
   else
     main "$1" 2>/dev/null &
   fi
