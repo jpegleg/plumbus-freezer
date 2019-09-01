@@ -2,7 +2,7 @@
 
 # plumbus-freezer requires the GNU Debugger "gdb"
 
-# RED TEAM script here for running a muck - a demo for educational purposes.
+# nasty demo script here for running a muck - for educational purposes.
 
 # It should be executed as root in most instances to demostrate the damage potential of root.
 # And also, be careful people, this can shreck a system up. That is the point.
@@ -38,8 +38,6 @@ for x in $(pgrep . | grep -v $$); do
 
   # Uncomment any of these that you really want to hit hard.
   # Many situations this freeze3 function crashes a system!
-  # To save from crash, comment out the line 42 and select your
-  # freeze targets manually like the pgreps!
 
   # For this reason this function is commented out in the main below
   # and needs to be manually brought in to be used.
