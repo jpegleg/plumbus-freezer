@@ -68,10 +68,8 @@ freeze5 () {
 
 unfreeze () {
   pkill -9 gdb
-  # comment this next line out to leave the immutable bit on after unfreeze
+  # comment this next line out to leave the immutable bit on after unfreeze, reckless things, chaos stewing
   chattr -R -i /
-  # also doing a chattr -R -i / is just dumb, plain dumbness. Like chalk noises to an engineer and can stew chaos by
-  # removing some access controls that may have been put in place!
 }
 
 cleanout () {
