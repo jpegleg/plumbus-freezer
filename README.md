@@ -1,6 +1,6 @@
 # plumbus-freezer
 
-WARNING: This script can ruin systems and cause damage. Only the person who runs it is responsible for the damange caused by it.
+WARNING: This script can ruin systems and cause damage. Only the person who runs it is responsible for the damage caused by it.
 
 This is an educational demonstration of the power of root in the unix based world. Run it as a regular user on 
 your demo machine, show what still logs and what doesn't, try using logger, then run it as root and see the difference.
