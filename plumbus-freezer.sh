@@ -4,8 +4,18 @@
 
 # nasty demo script here for running a muck - for educational purposes.
 
-# It should be executed as root in most instances to demostrate the damage potential of root.
-# And also, be careful people, this can shreck a system up. That is the point.
+        # A good test of your (auditd) skills is to defend against it.
+          # Try to build an auditd configuration that can stop/report 
+          # plumbus-freezer type things (logging disabler) run as root, heck seems fun.
+          # So watching for the activity is easy enough with auditd, but the plumbus-freezer still 
+          # stops most auditd configurations because the data from auditd is supposed to be stored
+          # in /var/log/audit by default and plumbus-freezer prevents that directory from being
+          # written to! So example first step is building a remote/shadow/sub/hypervisor system to 
+          # collect auditd information from a protected socket... then react? Go kubernetes go?
+
+# plumbus-freezer should be executed as root in most instances to demostrate the damage potential of root.
+# And also, be careful people, this can shreck a system up. That is the point. 
+# Use a non-prod VM or something with snapshots.
 
 # The plubmus-freezer is made to stop logging and programs in their tracks for 9 minutes, then give them the resume,
 # if they can recover! If you activate the commented out freeze3 function, the entire system may crash in some cases.
