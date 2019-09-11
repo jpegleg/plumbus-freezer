@@ -49,7 +49,7 @@ while [ $SECONDS -lt $resume ]; do
   # If the target machine is powerful, lower the sleep or remove it. Basically trying to keep the app under
   # even if (supervisord, monit etc) restarts it. Some will have leakage out to their remote host, but
   # without an app monitor, you won't have that 0.3 second or whatever time when syslog can ship out a message and it will
-  # just be down. Remove the sleep and even the app monitor won't keep it up but the CPU will spike. And 
+  # just be down. Remove the sleep and even the app monitor won't get it up to leak alerts up but the CPU will spike. And 
   # sometimes people watch CPU usage :)
 done
 }
@@ -63,7 +63,7 @@ while true; do
   # If the target machine is powerful, lower the sleep or remove it. Basically trying to keep the app under
   # even if (supervisord, monit etc) restarts it. Some will have leakage out to their remote host, but
   # without an app monitor, you won't have that 0.3 second or whatever time when syslog can ship out a message and it will
-  # just be down. Remove the sleep and even the app monitor won't keep it up but the CPU will spike. And 
+  # just be down. Remove the sleep and even the app monitor won't get it up to leak alerts but the CPU will spike. And 
   # sometimes people watch CPU usage :)
 done
 }
