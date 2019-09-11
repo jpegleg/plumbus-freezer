@@ -46,6 +46,11 @@ while [ $SECONDS -lt $resume ]; do
    # to be compatible with those wierd old sleeps that don't have decimals we || to 1, but 0.9 is better tuned
    # give a little sleep as to not raise the CPU
   sleep 0.9 || sleep 1
+  # If the target machine is powerful, lower the sleep or remove it. Basically trying to keep the app under
+  # even if (supervisord, monit etc) restarts it. Some will have leakage out to their remote host, but
+  # without an app monitor, you won't have that 0.3 second or whatever time when syslog can ship out a message and it will
+  # just be down. Remove the sleep and even the app monitor won't keep it up but the CPU will spike. And 
+  # sometimes people watch CPU usage :)
 done
 }
 
@@ -55,6 +60,11 @@ while true; do
   # to be compatible with those wierd old sleeps that don't have decimals we || to 1, but 0.9 is better tuned
   # give a little sleep as to not raise the CPU
   sleep 0.9 || sleep 1
+  # If the target machine is powerful, lower the sleep or remove it. Basically trying to keep the app under
+  # even if (supervisord, monit etc) restarts it. Some will have leakage out to their remote host, but
+  # without an app monitor, you won't have that 0.3 second or whatever time when syslog can ship out a message and it will
+  # just be down. Remove the sleep and even the app monitor won't keep it up but the CPU will spike. And 
+  # sometimes people watch CPU usage :)
 done
 }
 
