@@ -164,7 +164,6 @@ case "$1" in
   -darkplumbus)
     dpfreeze1 &
     cleanout &
-    dpfreeze2 &
 #    freeze3 &
     freeze4 &
     freeze5 &
