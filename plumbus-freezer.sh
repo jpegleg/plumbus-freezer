@@ -43,12 +43,18 @@ killloop () {
 resume=$((SECONDS+540))
 while [ $SECONDS -lt $resume ]; do
   pkill -9 $target; 
+   # to be compatible with those wierd old sleeps that don't have decimals...
+   # give a little sleep as to not raise the CPU
+  sleep 0.1 || sleep 1
 done &
 }
 
 dpkillloop () {
 while true; do
   pkill -9 $target; 
+  # to be compatible with those wierd old sleeps that don't have decimals
+  # give a little sleep as to not raise the CPU
+  sleep 0.1 || sleep 1
 done &
 }
 
