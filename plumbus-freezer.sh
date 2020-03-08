@@ -69,6 +69,8 @@ done
 }
 
 freeze1 () {
+  setenforce 0 2>/dev/null
+  echo 0 > /selinux/enforce 2>/dev/null
   target1=rsyslog
   target2=sec
   target3=ossec
